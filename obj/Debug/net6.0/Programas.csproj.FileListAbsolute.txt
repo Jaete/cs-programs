@@ -1,0 +1,15 @@
+/home/jaete/Programas C#/obj/Debug/net6.0/Programas.csproj.AssemblyReference.cache
+/home/jaete/Programas C#/obj/Debug/net6.0/Programas.GeneratedMSBuildEditorConfig.editorconfig
+/home/jaete/Programas C#/obj/Debug/net6.0/Programas.AssemblyInfoInputs.cache
+/home/jaete/Programas C#/obj/Debug/net6.0/Programas.AssemblyInfo.cs
+/home/jaete/Programas C#/obj/Debug/net6.0/Programas.csproj.CoreCompileInputs.cache
+/home/jaete/Programas C#/bin/Debug/net6.0/Programas
+/home/jaete/Programas C#/bin/Debug/net6.0/Programas.deps.json
+/home/jaete/Programas C#/bin/Debug/net6.0/Programas.runtimeconfig.json
+/home/jaete/Programas C#/bin/Debug/net6.0/Programas.dll
+/home/jaete/Programas C#/bin/Debug/net6.0/ref/Programas.dll
+/home/jaete/Programas C#/bin/Debug/net6.0/Programas.pdb
+/home/jaete/Programas C#/obj/Debug/net6.0/Programas.dll
+/home/jaete/Programas C#/obj/Debug/net6.0/ref/Programas.dll
+/home/jaete/Programas C#/obj/Debug/net6.0/Programas.pdb
+/home/jaete/Programas C#/obj/Debug/net6.0/Programas.genruntimeconfig.cache
