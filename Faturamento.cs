@@ -1,7 +1,13 @@
 using System;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
 
 namespace Faturamento
 {
+    public class FaturamentoObject{
+        public int dia { get; set; }
+        public double valor { get; set;}
+    }
     public class FaturamentoClass {
         // No enunciado da questão dizia sobre um json ou xml disponível
         // e que deveria ser utilizado. No entanto, não encontrei nenhum disponível no enunciado.
@@ -9,46 +15,54 @@ namespace Faturamento
 
         public static void Relatorio(){
             Random random = new();    
-            int[] faturamentoDiario = new int[30];
-            int faturamentoMensal = 0;
+            List<FaturamentoObject> faturamentoDiario = new(); 
+            double faturamentoMensal = 0;
             int diasFaturados = 0;
-            int menorFaturamento = 0;
-            int maiorFaturamento = 0;
-            int media;
-            int diasMaiorQueMedia = 0;
+            double menorFaturamento = 0;
+            double maiorFaturamento = 0;
+            double media;
+            double diasMaiorQueMedia = 0;
 
+            string caminho_json = "./dados.json";
+            if(File.Exists(caminho_json)){
+                string jsonString = File.ReadAllText(caminho_json);
+                faturamentoDiario = JsonSerializer.Deserialize<List<FaturamentoObject>>(jsonString);
+                var ind = 0;
+                foreach (var dia in faturamentoDiario)
+                {   
+                    
+                    if(ind == 0){
+                        menorFaturamento = dia.valor;
+                        maiorFaturamento = dia.valor;
+                        faturamentoMensal += dia.valor;
+                        ind++;
+                        continue;
+                    }
+                    if(dia.valor != 0){
+                        faturamentoMensal += dia.valor;
+                        diasFaturados++;
+                        if(dia.valor > maiorFaturamento){
+                            maiorFaturamento = dia.valor;
+                        }
+                        if(dia.valor < menorFaturamento){
+                            menorFaturamento = dia.valor;
+                        }
+                    }
+                }
 
-            for(int i = 0; i < 30; i++){
-                if ((i % 7 == 5) || (i % 7 == 6) || i == 14) // 14 representando um feriado
-                {
-                    faturamentoDiario[i] = 0; // Fim de semana ou feriado
-                }else{
-                    faturamentoDiario[i] = random.Next(1500, 4500);
-                }
-                if(faturamentoDiario[i] != 0){
-                    if(i == 0){
-                        menorFaturamento = faturamentoDiario[i];
-                        maiorFaturamento = faturamentoDiario[i];
-                    }
-                    if(faturamentoDiario[i] < menorFaturamento){
-                    menorFaturamento = faturamentoDiario[i];
-                    }
-                    if(faturamentoDiario[i] > maiorFaturamento){
-                        maiorFaturamento = faturamentoDiario[i];
-                    }
-                    faturamentoMensal += faturamentoDiario[i];
-                    diasFaturados++;
-                }
             }
+            Console.WriteLine($"Dias faturados: {diasFaturados}");
             media = faturamentoMensal / diasFaturados;
-            for(int i = 0; i < diasFaturados; i++){
-                if(faturamentoDiario[i] > media){
+            foreach (var dia in faturamentoDiario)
+            {
+                if(dia.valor > media){
                     diasMaiorQueMedia++;
                 }
             }
-            Console.WriteLine($"Menor valor de faturamento no mês: R${menorFaturamento}");
-            Console.WriteLine($"Maior valor de faturamento no mês: R${maiorFaturamento}");
-            Console.WriteLine($"Dias de faturamento maiores que a média de R${media}: {diasMaiorQueMedia}");
+            
+            Console.WriteLine($"Menor valor de faturamento no mês: R${menorFaturamento:F2}");
+            Console.WriteLine($"Maior valor de faturamento no mês: R${maiorFaturamento:F2}");
+            Console.WriteLine($"Dias de faturamento maiores que a média de R${media:F2}: {diasMaiorQueMedia}");
         }
     }
 }
